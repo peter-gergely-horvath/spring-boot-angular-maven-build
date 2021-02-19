@@ -5,6 +5,10 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
+const memos = [{ id: 1, text: 'Remember to implement sample'
+
+}];
+
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -26,6 +30,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return register();
                 case url.endsWith('/users') && method === 'GET':
                     return getUsers();
+                case url.endsWith('/memos') && method === 'GET':
+                    return getMemos();
                 case url.match(/\/users\/\d+$/) && method === 'GET':
                     return getUserById();
                 case url.match(/\/users\/\d+$/) && method === 'PUT':
@@ -69,6 +75,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function getUsers() {
             if (!isLoggedIn()) return unauthorized();
             return ok(users);
+        }
+
+        function getMemos() {
+            if (!isLoggedIn()) return unauthorized();
+            return ok(memos);
         }
 
         function getUserById() {

@@ -1,13 +1,35 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { User } from '../_models';
 import { AccountService } from '../_services';
+import {Memo} from '../_models/memo';
+import {first} from 'rxjs/operators';
+import {MemoService} from '../_services/memo.service';
+import {Subscription} from 'rxjs';
 
 @Component({ templateUrl: 'home.component.html' })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
     user: User;
 
-    constructor(private accountService: AccountService) {
+    memos: Memo[];
+
+    private memoSubscription: Subscription;
+
+    constructor(private accountService: AccountService,
+                private memoService: MemoService) {
         this.user = this.accountService.userValue;
+    }
+
+    ngOnInit() {
+        this.memoService.getAllMemos()
+            .subscribe(loadedMemos => this.memos = loadedMemos);
+    }
+
+    ngOnDestroy(): void {
+        this.memoSubscription.unsubscribe();
+    }
+
+    deleteMemo(id: string) {
+
     }
 }

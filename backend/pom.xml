@@ -15,6 +15,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.commandmosaic</groupId>
+            <artifactId>commandmosaic-spring-web</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.commandmosaic</groupId>
+            <artifactId>commandmosaic-spring-boot-autoconfigure</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com</groupId>
             <artifactId>frontend</artifactId>
             <version>${project.version}</version>

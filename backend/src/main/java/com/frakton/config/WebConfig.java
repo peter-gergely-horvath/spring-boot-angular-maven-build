@@ -1,13 +1,21 @@
 package com.frakton.config;
 
+import com.frakton.commands.CommandRoot;
+import org.commandmosaic.api.configuration.CommandDispatcherConfiguration;
+import org.commandmosaic.api.server.CommandDispatcherServer;
+import org.commandmosaic.spring.web.CommandDispatcherRequestHandler;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import java.io.IOException;
 
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -26,4 +34,15 @@ public class WebConfig implements WebMvcConfigurer {
                 });
     }
 
+    @Bean
+    public CommandDispatcherConfiguration springCommandDispatcherConfiguration() {
+        return CommandDispatcherConfiguration.builder()
+                .rootPackageFromClass(CommandRoot.class)
+                .build();
+    }
+
+    @Bean(name = "/commands")
+    public HttpRequestHandler httpRequestHandler(CommandDispatcherServer commandDispatcherServer) {
+        return new CommandDispatcherRequestHandler(commandDispatcherServer);
+    }
 }

@@ -1,13 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import { first } from 'rxjs/operators';
 
-import { User } from '../_models';
 import { AccountService } from '../_services';
+import {User} from '../_models';
 import {Memo} from '../_models/memo';
-import {MemoService} from '../_services/memo.service';
 import {Subscription} from 'rxjs';
+import {MemoService} from '../_services/memo.service';
 
-@Component({ templateUrl: 'home.component.html' })
-export class HomeComponent implements OnInit, OnDestroy {
+@Component({ templateUrl: 'list.component.html' })
+export class ListComponent implements OnInit, OnDestroy {
     user: User;
 
     memos: Memo[];

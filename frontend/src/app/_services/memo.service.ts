@@ -24,6 +24,10 @@ export class MemoService {
         return this.http.get<Memo>(`${environment.apiUrl}/memos/${id}`);
     }
 
+    create(memoText: string) {
+        return throwError('not implemented yet');
+    }
+
     update(memo: Memo) {
         return throwError('not implemented yet');
     }

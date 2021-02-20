@@ -1,27 +1,29 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Observable, throwError} from 'rxjs';
 
-import { environment } from '../../environment';
-import { User } from '../_models';
+import {environment} from '../../environment';
 import {Memo} from '../_models/memo';
+import {CommandDispatcher} from '../_commandmosaic/command-dispatcher';
+import {Command} from '../_commandmosaic/command';
+import {HttpClient} from '@angular/common/http';
 
-@Injectable({ providedIn: 'root' })
+
+
+@Injectable({providedIn: 'root'})
 export class MemoService {
 
     constructor(
-        private router: Router,
-        private http: HttpClient
-    ) { }
+        private http: HttpClient,
+        private commandDispatcher: CommandDispatcher) {
+    }
 
     getAllMemos(): Observable<Memo[]> {
         return this.http.get<Memo[]>(`${environment.apiUrl}/memos`);
     }
 
-    getById(id: string): Observable<Memo> {
-        return this.http.get<Memo>(`${environment.apiUrl}/memos/${id}`);
+    getById(commandId: string): Observable<Memo> {
+        return this.commandDispatcher.dispatchCommand(
+            new Command<Memo>('memo/GetMemoByIdCommand', {id: commandId}));
     }
 
     create(memoText: string) {

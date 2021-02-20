@@ -5,10 +5,9 @@ import { first } from 'rxjs/operators';
 
 import { AlertService } from '../_services';
 import {MemoService} from '../_services/memo.service';
-import {Memo} from '../_models/memo';
 
-@Component({ templateUrl: 'add-edit.component.html' })
-export class AddEditComponent implements OnInit {
+@Component({ templateUrl: 'memo-add-edit.component.html' })
+export class MemoAddEditComponent implements OnInit {
     form: FormGroup;
     id: string;
     isAddMode: boolean;
@@ -35,7 +34,7 @@ export class AddEditComponent implements OnInit {
             this.memoService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.firstName.setValue(x.text);
+                    this.f.memoText.setValue(x.text);
                 });
         }
     }

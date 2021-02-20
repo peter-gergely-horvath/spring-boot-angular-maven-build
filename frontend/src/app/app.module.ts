@@ -10,7 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
-import { HomeComponent } from './home';
+import {MemoLayoutComponent} from './memos/memo-layout.component';
+import {MemoListComponent} from './memos/memo-list.component';
+import {MemoAddEditComponent} from './memos/memo-add-edit.component';
 
 @NgModule({
     imports: [
@@ -22,7 +24,9 @@ import { HomeComponent } from './home';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent
+        MemoLayoutComponent,
+        MemoListComponent,
+        MemoAddEditComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

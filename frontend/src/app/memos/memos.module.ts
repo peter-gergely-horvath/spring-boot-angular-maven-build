@@ -3,9 +3,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { MemosRoutingModule } from './memos-routing.module';
-import { LayoutComponent } from './layout.component';
-import { ListComponent } from './list.component';
-import { AddEditComponent } from './add-edit.component';
+import { MemoLayoutComponent } from './memo-layout.component';
+import { MemoListComponent } from './memo-list.component';
+import { MemoAddEditComponent } from './memo-add-edit.component';
 
 @NgModule({
   imports: [
@@ -14,9 +14,9 @@ import { AddEditComponent } from './add-edit.component';
     MemosRoutingModule
   ],
   declarations: [
-    LayoutComponent,
-    ListComponent,
-    AddEditComponent
+    MemoLayoutComponent,
+    MemoListComponent,
+    MemoAddEditComponent
   ]
 })
 export class MemosModule { }

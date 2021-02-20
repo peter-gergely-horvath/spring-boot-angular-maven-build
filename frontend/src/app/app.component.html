@@ -1,7 +1,7 @@
 <!-- nav -->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a class="nav-item nav-link" routerLink="/memos" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Memos</a>
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
     </div>
@@ -16,9 +16,11 @@
 <!-- credits -->
 <div class="text-center mt-4">
     <p>
-        <a href="https://jasonwatmore.com/post/2020/04/28/angular-9-user-registration-and-login-example-tutorial" target="_top">Angular 9 - User Registration and Login Example & Tutorial</a>
+        <a href="https://github.com/peter-gergely-horvath/commandmosaic/tree/master/sample-apps/commandmosaic-angular-springboot2-sample-app" target="_top">
+            MemoApp: CommandMosaic Sample Angular Application
+        </a>
     </p>
     <p>
-        <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
+        <a href="https://commandmosaic.org" target="_top">CommandMosaic.org</a>
     </p>
 </div>

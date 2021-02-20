@@ -7,8 +7,8 @@ import {Memo} from '../_models/memo';
 import {Subscription} from 'rxjs';
 import {MemoService} from '../_services/memo.service';
 
-@Component({ templateUrl: 'list.component.html' })
-export class ListComponent implements OnInit, OnDestroy {
+@Component({ templateUrl: 'memo-list.component.html' })
+export class MemoListComponent implements OnInit, OnDestroy {
     user: User;
 
     memos: Memo[];

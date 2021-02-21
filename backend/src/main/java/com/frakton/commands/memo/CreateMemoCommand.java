@@ -7,17 +7,23 @@ import org.commandmosaic.api.CommandContext;
 import org.commandmosaic.api.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class GetMemoByIdCommand implements Command<Memo> {
+public class CreateMemoCommand implements Command<Void> {
 
     @Parameter
-    private Long id;
+    private String text;
 
     @Autowired
     private MemoRepository memoRepository;
 
     @Override
-    public Memo execute(CommandContext commandContext) {
-        return memoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Memo not found: " + id));
+    public Void
+    execute(CommandContext commandContext) {
+
+        Memo memo = new Memo();
+        memo.setText(text);
+
+        memoRepository.save(memo);
+
+        return null;
     }
 }

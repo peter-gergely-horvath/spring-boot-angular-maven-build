@@ -1,13 +1,12 @@
 package com.frakton.commands.memo;
 
-import com.frakton.entities.Memo;
 import com.frakton.repositories.MemoRepository;
 import org.commandmosaic.api.Command;
 import org.commandmosaic.api.CommandContext;
 import org.commandmosaic.api.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class GetMemoByIdCommand implements Command<Memo> {
+public class DeleteMemoByIdCommand implements Command<Void> {
 
     @Parameter
     private Long id;
@@ -16,8 +15,9 @@ public class GetMemoByIdCommand implements Command<Memo> {
     private MemoRepository memoRepository;
 
     @Override
-    public Memo execute(CommandContext commandContext) {
-        return memoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Memo not found: " + id));
+    public Void execute(CommandContext commandContext) {
+        memoRepository.deleteById(id);
+
+        return null;
     }
 }

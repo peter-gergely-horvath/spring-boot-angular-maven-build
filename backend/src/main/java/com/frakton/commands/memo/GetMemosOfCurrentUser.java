@@ -4,20 +4,16 @@ import com.frakton.entities.Memo;
 import com.frakton.repositories.MemoRepository;
 import org.commandmosaic.api.Command;
 import org.commandmosaic.api.CommandContext;
-import org.commandmosaic.api.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class GetMemoByIdCommand implements Command<Memo> {
-
-    @Parameter
-    private Long id;
+public class GetMemosOfCurrentUser implements Command<Iterable<Memo>> {
 
     @Autowired
     private MemoRepository memoRepository;
 
     @Override
-    public Memo execute(CommandContext commandContext) {
-        return memoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Memo not found: " + id));
+    public Iterable<Memo> execute(CommandContext commandContext) {
+
+        return memoRepository.findAll();
     }
 }

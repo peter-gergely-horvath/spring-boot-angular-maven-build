@@ -12,7 +12,7 @@
         <td>{{memo.text}}</td>
         <td style="white-space: nowrap">
             <a routerLink="edit/{{memo.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-            <button (click)="deleteMemo(memo.id)" class="btn btn-sm btn-danger btn-delete-user"
+            <button (click)="deleteMemo(memo)" class="btn btn-sm btn-danger btn-delete-user"
                     [disabled]="memo.isDeleting">
                 <span *ngIf="memo.isDeleting" class="spinner-border spinner-border-sm"></span>
                 <span *ngIf="!memo.isDeleting">Delete</span>

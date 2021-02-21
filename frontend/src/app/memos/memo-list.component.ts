@@ -8,12 +8,10 @@ import {Subscription} from 'rxjs';
 import {MemoService} from '../_services/memo.service';
 
 @Component({ templateUrl: 'memo-list.component.html' })
-export class MemoListComponent implements OnInit, OnDestroy {
+export class MemoListComponent implements OnInit {
     user: User;
 
     memos: Memo[];
-
-    private memoSubscription: Subscription;
 
     constructor(private accountService: AccountService,
                 private memoService: MemoService) {
@@ -21,15 +19,20 @@ export class MemoListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.memoSubscription = this.memoService.getAllMemos()
+        this.loadMemos();
+    }
+
+    private loadMemos() {
+        this.memoService.getAllMemos()
+            .pipe(first())
             .subscribe(loadedMemos => this.memos = loadedMemos);
     }
 
-    ngOnDestroy(): void {
-        this.memoSubscription.unsubscribe();
-    }
-
-    deleteMemo(id: string) {
-
+    deleteMemo(memo: Memo) {
+        this.memoService.delete(memo)
+            .pipe(first())
+            .subscribe(() => {
+                this.loadMemos();
+            });
     }
 }

@@ -7,7 +7,6 @@ import {MemoListComponent} from './memos/memo-list.component';
 import {MemoAddEditComponent} from './memos/memo-add-edit.component';
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
-const memosModule = () => import('./memos/memos.module').then(x => x.MemosModule);
 const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
 
 const routes: Routes = [

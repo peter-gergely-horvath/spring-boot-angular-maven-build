@@ -62,7 +62,7 @@ export class MemoAddEditComponent implements OnInit {
     }
 
     private createUser() {
-        this.memoService.create(this.form.value)
+        this.memoService.create(this.form.value.memoText)
             .pipe(first())
             .subscribe(
                 data => {

@@ -1,8 +1,12 @@
 package com.frakton.config;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.commandmosaic.api.configuration.CommandDispatcherConfiguration;
 import org.commandmosaic.api.conversion.TypeConversionService;
 import org.commandmosaic.api.server.CommandDispatcherServer;
+import org.commandmosaic.security.interceptor.AbstractSecurityCommandInterceptor;
+import org.commandmosaic.security.jwt.config.JwtSecurityConfiguration;
 import org.commandmosaic.spring.web.CommandDispatcherRequestHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +24,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
+import javax.crypto.SecretKey;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.frakton.repositories")
@@ -53,6 +59,18 @@ public class WebConfig implements WebMvcConfigurer {
     public CommandDispatcherConfiguration springCommandDispatcherConfiguration() {
         return CommandDispatcherConfiguration.builder()
                 .rootPackage("com.frakton.commands")
+                .interceptor(AbstractSecurityCommandInterceptor.class)
+                .build();
+    }
+
+
+    @Bean
+    public JwtSecurityConfiguration jwtSecurityConfiguration() {
+        // TODO: replace with actual key
+        byte[] sampleKey = Keys.secretKeyFor(SignatureAlgorithm.HS256).getEncoded();
+
+        return JwtSecurityConfiguration.builder()
+                .setJwtKey(sampleKey)
                 .build();
     }
 

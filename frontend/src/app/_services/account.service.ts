@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environment';
 import { User } from '../_models';
+import {CommandDispatcher} from '../_commandmosaic/command-dispatcher';
+import {Command} from '../_commandmosaic/command';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -14,7 +16,9 @@ export class AccountService {
 
     constructor(
         private router: Router,
-        private http: HttpClient
+        private http: HttpClient,
+
+        private commandDispatcher: CommandDispatcher
     ) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
@@ -24,18 +28,14 @@ export class AccountService {
         return this.userSubject.value;
     }
 
-    login(username, password) {
-        return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
-            }));
+
+    login(pusername, ppassword) {
+        return this.commandDispatcher.dispatchCommand(
+            new Command<[]>('auth/LoginCommand', {username: pusername, password: ppassword}));
     }
 
     logout() {
-        // remove user from local storage and set current user to null
+        // remove user from local storage and set current user to nullCommandDispatcherRequestHandler
         localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/account/login']);
